@@ -131,7 +131,7 @@ class DesignPatternAnalyzer:
         print(f"Total files analyzed: {self.total_files_analyzed}")
 
 # Example usage:
-project_path = "/Users/kishan/Documents/america/python/Design-Patterns-In-Python"
+project_path = "/Users/Documents/python/circle_apis"
 analyzer = DesignPatternAnalyzer(project_path)
 analyzer.analyze()
 analyzer.print_results()
