@@ -4,11 +4,13 @@ import re
 from collections import defaultdict
 
 class DesignPatternAnalyzer:
+    # Initialize the analyzer with the project path
     def __init__(self, project_path):
         self.project_path = project_path
         self.patterns = defaultdict(list)
         self.total_files_analyzed = 0
 
+    # Scan Python files and check for supported design patterns
     def analyze(self):
         """Analyze all files in the project directory to identify design patterns."""
         for root, _, files in os.walk(self.project_path):
@@ -37,28 +39,33 @@ class DesignPatternAnalyzer:
                         self._check_template(file_content, file_path)
                         self._check_interpreter(file_content, file_path)
 
+    # Check for Singleton pattern
     def _check_singleton(self, file_content, file_path):
         if re.search(r'__new__\s*\(cls\)', file_content):
             self.patterns["Singleton"].append(file_path)
         elif re.search(r'@classmethod\s+def\s+get_instance', file_content):
             self.patterns["Singleton"].append(file_path)
 
+    # Check for Factory pattern
     def _check_factory(self, file_content, file_path):
         if re.search(r'class\s+[A-Za-z]+Factory', file_content):
             self.patterns["Factory"].append(file_path)
         elif re.search(r'def\s+create\w*', file_content):
             self.patterns["Factory"].append(file_path)
 
+    # Check for Decorator pattern
     def _check_decorator(self, file_content, file_path):
         if re.search(r'@.*\s+def\s+', file_content):
             self.patterns["Decorator"].append(file_path)
 
+    # Check for State pattern
     def _check_state(self, file_content, file_path):
         if re.search(r'class\s+[A-Za-z]+State', file_content):
             self.patterns["State"].append(file_path)
         elif re.search(r'change\s+state', file_content, re.IGNORECASE):
             self.patterns["State"].append(file_path)
 
+    # Check for Strategy pattern
     def _check_strategy(self, tree, file_path):
         strategies = set()
         for node in ast.walk(tree):
@@ -67,50 +74,62 @@ class DesignPatternAnalyzer:
         if len(strategies) >= 2:
             self.patterns["Strategy"].append(file_path)
 
+    # Check for Abstract Factory pattern
     def _check_abstract_factory(self, file_content, file_path):
         if re.search(r'abstract.*factory', file_content, re.IGNORECASE):
             self.patterns["Abstract Factory"].append(file_path)
 
+    # Check for Adapter pattern
     def _check_adapter(self, file_content, file_path):
         if re.search(r'adapter', file_content, re.IGNORECASE):
             self.patterns["Adapter"].append(file_path)
 
+    # Check for Bridge pattern
     def _check_bridge(self, file_content, file_path):
         if re.search(r'bridge', file_content, re.IGNORECASE):
             self.patterns["Bridge"].append(file_path)
 
+    # Check for Builder pattern
     def _check_builder(self, file_content, file_path):
         if re.search(r'builder', file_content, re.IGNORECASE):
             self.patterns["Builder"].append(file_path)
 
+    # Check for Chain of Responsibility pattern
     def _check_chain_of_responsibility(self, file_content, file_path):
         if re.search(r'chain.*responsibility', file_content, re.IGNORECASE):
             self.patterns["Chain of Responsibility"].append(file_path)
 
+    # Check for Composite pattern
     def _check_composite(self, file_content, file_path):
         if re.search(r'composite', file_content, re.IGNORECASE):
             self.patterns["Composite"].append(file_path)
 
+    # Check for Facade pattern
     def _check_facade(self, file_content, file_path):
         if re.search(r'facade', file_content, re.IGNORECASE):
             self.patterns["Facade"].append(file_path)
 
+    # Check for Iterator pattern
     def _check_iterator(self, file_content, file_path):
         if re.search(r'iterator', file_content, re.IGNORECASE):
             self.patterns["Iterator"].append(file_path)
 
+    # Check for Prototype pattern
     def _check_prototype(self, file_content, file_path):
         if re.search(r'prototype', file_content, re.IGNORECASE):
             self.patterns["Prototype"].append(file_path)
 
+    # Check for Proxy pattern
     def _check_proxy(self, file_content, file_path):
         if re.search(r'proxy', file_content, re.IGNORECASE):
             self.patterns["Proxy"].append(file_path)
 
+    # Check for Template pattern
     def _check_template(self, file_content, file_path):
         if re.search(r'template', file_content, re.IGNORECASE):
             self.patterns["Template"].append(file_path)
 
+    # Check for Interpreter pattern
     def _check_interpreter(self, file_content, file_path):
         if re.search(r'interpreter', file_content, re.IGNORECASE):
             self.patterns["Interpreter"].append(file_path)
